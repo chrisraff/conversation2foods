@@ -39,7 +39,7 @@ def extract_speech_string(hslld_string):
 
         # finished cleaning
 
-        # if the line consists of 1 character, we don't need it
+        # if the line consists of 1 character followed by punctuation, we don't need it
         if re.match(r'^(.)\1{0,}[\?\!\.]$', line):
             continue
 
@@ -54,6 +54,6 @@ if __name__ == "__main__":
     with open(file_path, 'r') as f:
         content = f.read()
 
-    clean_file = extract_speech_string(content)
+    clean_content = extract_speech_string(content)
 
-    print(clean_file)
+    print(clean_content)
