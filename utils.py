@@ -5,6 +5,8 @@ data_path = '../Original Transcripts/'
 
 data_folders = [ f'HV{i}/MT/' for i in [1, 2, 3, 5, 7] ]
 
+pickle_path = 'pickles/'
+
 
 def get_all_transcript_paths():
     return glob.glob(data_path + 'HV*/MT/*.cha')
