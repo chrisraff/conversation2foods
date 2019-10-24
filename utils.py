@@ -1,7 +1,10 @@
-import glob
+from pathlib import Path
 
 
-data_path = '../Original Transcripts/'
+data_path = Path('../Original Transcripts/')
+answer_path = Path('../Ground Truth/')
+
+all_transcripts_glob = 'HV*/MT/*.cha'
 
 data_folders = [ f'HV{i}/MT/' for i in [1, 2, 3, 5, 7] ]
 
@@ -9,7 +12,7 @@ pickle_path = 'pickles/'
 
 
 def get_all_transcript_paths():
-    return glob.glob(data_path + 'HV*/MT/*.cha')
+    return data_path.glob(all_transcripts_glob)
 
 
 def get_all_transcript_strings():
@@ -17,8 +20,8 @@ def get_all_transcript_strings():
 
 
 def safe_read(file):
-    with open(file, 'rb') as f:
-        meat = f.read().decode()
+    with open(file, 'r') as f:
+        meat = f.read()
     return meat
 
 

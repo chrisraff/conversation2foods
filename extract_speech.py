@@ -1,4 +1,4 @@
-from utils import *
+from utils import data_path
 import re
 
 
@@ -15,6 +15,9 @@ def extract_speech_string(hslld_string):
 
         # remove parenthesis and angle brackets
         line = re.sub(r'[\(\)\<\>]', '', line)
+
+        # remove some other symbols
+        line = re.sub(r'[\^\+/]', ' ', line)
 
         # remove [brackets and their contents]
         line = re.sub(r'\[.*?\]', '', line)
@@ -49,7 +52,7 @@ def extract_speech_string(hslld_string):
 
 
 if __name__ == "__main__":
-    file_path = data_path + 'HV1/MT/admmt1.cha'
+    file_path = data_path.joinpath('HV1/MT/admmt1.cha')
 
     with open(file_path, 'r') as f:
         content = f.read()
