@@ -11,6 +11,7 @@ def extract_speech_string(hslld_string):
             continue
 
         # delete beginning of line
+        speaker = line[1:4]
         line = line[6:]
 
         # remove parenthesis and angle brackets
@@ -52,7 +53,7 @@ def extract_speech_string(hslld_string):
         if re.match(r'^(.)\1{0,}[\?\!\.]$', line):
             continue
 
-        output += line + '\n'
+        output += f"{speaker}: {line}\n"
 
     return output
 
