@@ -40,6 +40,12 @@ def extract_speech_string(hslld_string):
         # fix spaces
         line = re.sub(r' +', ' ', line)
 
+        # remove leading periods
+        line = re.sub(r'^\.+ ?', '', line)
+
+        # remove leading and trailing spaces
+        line = line.strip()
+
         # finished cleaning
 
         # if the line consists of 1 character followed by punctuation, we don't need it

@@ -7,7 +7,7 @@ from tqdm import tqdm
 
 
 if __name__ == '__main__':
-    for path in get_all_transcript_paths():
+    for path in tqdm(list(get_all_transcript_paths())):
         transcript = extract_speech_string(safe_read(path))
 
         with open(f'transcripts/{path.parts[-1]}', 'w') as f:
