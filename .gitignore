@@ -3,6 +3,7 @@ pickles/*
 transcripts/*
 training_prompts/*
 chunks_to_foods.json
+bert_data.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

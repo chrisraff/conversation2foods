@@ -14,6 +14,8 @@ Run `clean_hslld.py` to clean all the transcripts (create the folder 'transcript
 
 Then run `parse_json_labels.py` to generate evidence data
 
+Then run `generate_evidence_classifier_data.py` to convert the evidence data into labeled bert data. A true label indicates that the chunk contains evidence of a food
+
 Run the food database lemmatizer
 `python food_database_lemmatizer.py`
 
