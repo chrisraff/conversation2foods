@@ -2,6 +2,7 @@
 pickles/*
 transcripts/*
 training_prompts/*
+chunks_to_foods.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
