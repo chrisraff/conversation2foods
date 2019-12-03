@@ -1,0 +1,26 @@
+[
+    {
+        "food": "pork",
+        "evidence": [50, 111, 221, 224, 227, 369]
+    },
+    {
+        "food": "pork chop",
+        "evidence": [50, 111, 221, 224, 227, 369]
+    },
+    {
+        "food": "milk",
+        "evidence": [52]
+    },
+    {
+        "food": "melon",
+        "evidence": [57, 370, 372, 379]
+    },
+    {
+        "food": "biscuit",
+        "evidence": [373]
+    },
+    {
+        "food": "chicken",
+        "evidence": [69, 339, 340, 386]
+    }
+]

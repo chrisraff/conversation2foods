@@ -1,0 +1,30 @@
+[
+    {
+        "food": "ketchup",
+        "evidence": [90, 160, 193, 622, 635]
+    },
+    {
+        "food": "hamburger",
+        "evidence": [3, 47, 59, 151, 152, 310, 490, 522, 538, 563, 726]
+    },
+    {
+        "food": "mustard",
+        "evidence": [92]
+    },
+    {
+        "food": "french fry",
+        "evidence": [142, 171, 522, 1064]
+    },
+    {
+        "food": "Sprite",
+        "evidence": [264]
+    },
+    {
+        "food": "Coke",
+        "evidence": [270, 271]
+    },
+    {
+        "food": "sandwich",
+        "evidence": [766]
+    }
+]

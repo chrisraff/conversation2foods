@@ -1,0 +1,14 @@
+[
+    {
+        "food": "steak",
+        "evidence": [5, 19, 32, 35, 36]
+    },
+    {
+        "food": "salad",
+        "evidence": [17, 25, 26]
+    },
+    {
+        "food": "french fries",
+        "evidence": [18, 20]
+    }
+]

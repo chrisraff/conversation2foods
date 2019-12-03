@@ -1,0 +1,46 @@
+[
+    {
+        "food": "ketchup",
+        "evidence": [64, 116]
+    },
+    {
+        "food": "salad",
+        "evidence": [495]
+    },
+    {
+        "food": "dressing",
+        "evidence": [79, 497]
+    },
+    {
+        "food": "olive oil",
+        "evidence": [109]
+    },
+    {
+        "food": "Balsamic vinegar",
+        "evidence": [109]
+    },
+    {
+        "food": "fish",
+        "evidence": [119]
+    },
+    {
+        "food": "lemon",
+        "evidence": [226]
+    },
+    {
+        "food": "milk",
+        "evidence": [312, 340, 411, 683]
+    },
+    {
+        "food": "french fries",
+        "evidence": [403, 426]
+    },
+    {
+        "food": "cake",
+        "evidence": [500, 505]
+    },
+    {
+        "food": "chocolate mousse",
+        "evidence": [503, 552]
+    }
+]

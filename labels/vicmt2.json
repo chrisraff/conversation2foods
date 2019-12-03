@@ -1,0 +1,18 @@
+[
+    {
+        "food": "corn",
+        "evidence": [290]
+    },
+    {
+        "food": "salt",
+        "evidence": [45, 530]
+    },
+    {
+        "food": "coke",
+        "evidence": [623]
+    },
+    {
+        "food": "meat",
+        "evidence": [642]
+    }
+]

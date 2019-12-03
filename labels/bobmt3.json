@@ -1,0 +1,14 @@
+[
+    {
+        "food": "milk",
+        "evidence": [1]
+    },
+    {
+        "food": "oatmeal",
+        "evidence": [8, 35, 51, 116]
+    },
+    {
+        "food": "orange juice",
+        "evidence": [213]
+    }
+]

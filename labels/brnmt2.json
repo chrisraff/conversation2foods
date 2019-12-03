@@ -1,0 +1,22 @@
+[
+    {
+        "food": "gravy",
+        "evidence": [39]
+    },
+    {
+        "food": "bread",
+        "evidence": [75, 350]
+    },
+    {
+        "food": "milk",
+        "evidence": [82]
+    },
+    {
+        "food": "steak",
+        "evidence": [62, 90]
+    },
+    {
+        "food": "rice",
+        "evidence": [199, 430, 475, 479]
+    }
+]

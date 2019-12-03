@@ -1,0 +1,26 @@
+[
+    {
+        "food": "steak",
+        "evidence": [19, 86, 88, 152]
+    },
+    {
+        "food": "steak sauce",
+        "evidence": [66]
+    },
+    {
+        "food": "corn",
+        "evidence": [74, 85, 119]
+    },
+    {
+        "food": "eggs",
+        "evidence": [195]
+    },
+    {
+        "food": "ice cream",
+        "evidence": [201]
+    },
+    {
+        "food": "butter",
+        "evidence": [261]
+    }
+]

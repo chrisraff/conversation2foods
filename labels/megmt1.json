@@ -1,0 +1,30 @@
+[
+    {
+        "food": "rice",
+        "evidence": [32, 216, 354, 406]
+    },
+    {
+        "food": "potatoes",
+        "evidence": [58]
+    },
+    {
+        "food": "steak",
+        "evidence": [73, 182, 216, 233, 246, 341, 353]
+    },
+    {
+        "food": "bread",
+        "evidence": [105, 112]
+    },
+    {
+        "food": "butter",
+        "evidence": [109, 125]
+    },
+    {
+        "food": "pie",
+        "evidence": [387, 388]
+    },
+    {
+        "food": "milk",
+        "evidence": [27, 174, 217]
+    }
+]

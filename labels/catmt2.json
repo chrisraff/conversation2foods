@@ -1,0 +1,30 @@
+[
+    {
+        "food": "butterscotch",
+        "evidence": [8, 12]
+    },
+    {
+        "food": "butter",
+        "evidence": [3, 19, 87, 192, 200, 206]
+    },
+    {
+        "food": "juice",
+        "evidence": [428]
+    },
+    {
+        "food": "bread",
+        "evidence": [87, 192, 200, 318, 508]
+    },
+    {
+        "food": "noodles",
+        "evidence": [45, 559]
+    },
+    {
+        "food": "onions",
+        "evidence": [685]
+    },
+    {
+        "food": "chicken",
+        "evidence": [568]
+    }
+]

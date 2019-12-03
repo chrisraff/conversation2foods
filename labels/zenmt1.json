@@ -1,0 +1,46 @@
+[
+    {
+        "food": "steak",
+        "evidence": [79, 123, 540, 541, 768]
+    },
+    {
+        "food": "rice",
+        "evidence": [79]
+    },
+    {
+        "food": "hot dog",
+        "evidence": [46, 90, 92, 136, 374, 522, 524, 525, 687, 799]
+    },
+    {
+        "food": "milk",
+        "evidence": [375, 568, 570, 572, 781]
+    },
+    {
+        "food": "ham hock",
+        "evidence": [302]
+    },
+    {
+        "food": "beans",
+        "evidence": [322, 324, 374, 543, 544, 545, 757, 768]
+    },
+    {
+        "food": "pork and beans",
+        "evidence": [322, 324]
+    },
+    {
+        "food": "pineapples",
+        "evidence": [324, 478, 680]
+    },
+    {
+        "food": "Pepsi",
+        "evidence": [440]
+    },
+    {
+        "food": "spinach",
+        "evidence": [645]
+    },
+    {
+        "food": "sauce",
+        "evidence": [749]
+    }
+]

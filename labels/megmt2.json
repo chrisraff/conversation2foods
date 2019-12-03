@@ -1,0 +1,34 @@
+[
+    {
+        "food": "butter",
+        "evidence": [34]
+    },
+    {
+        "food": "salt",
+        "evidence": [34]
+    },
+    {
+        "food": "chicken",
+        "evidence": [35, 53, 76, 122, 331, 373, 382, 527, 529, 618]
+    },
+    {
+        "food": "shrimp",
+        "evidence": [57, 261]
+    },
+    {
+        "food": "potatoes",
+        "evidence": [72, 77, 133, 136, 137, 366, 373, 517, 527, 618]
+    },
+    {
+        "food": "sweet and sour sauce",
+        "evidence": [125, 127]
+    },
+    {
+        "food": "sauce",
+        "evidence": [125, 127, 245, 366]
+    },
+    {
+        "food": "coffee",
+        "evidence": [363]
+    }
+]

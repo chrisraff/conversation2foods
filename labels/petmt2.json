@@ -1,0 +1,34 @@
+[
+    {
+        "food": "chips",
+        "evidence": [462]
+    },
+    {
+        "food": "sandwich",
+        "evidence": [511, 515, 525, 532, 553, 590]
+    },
+    {
+        "food": "sprite",
+        "evidence": [367]
+    },
+    {
+        "food": "tonic",
+        "evidence": [317, 329, 331, 345, 348, 365, 508, 509, 595, 597, 665, 667, 672]
+    },
+    {
+        "food": "root beer",
+        "evidence": [520]
+    },
+    {
+        "food": "tuna",
+        "evidence": [547, 654]
+    },
+    {
+        "food": "doughnut",
+        "evidence": [540, 664, 669, 840]
+    },
+    {
+        "food": "milk",
+        "evidence": [669, 837, 838]
+    }
+]

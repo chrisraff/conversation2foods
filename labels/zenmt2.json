@@ -1,0 +1,22 @@
+[
+    {
+        "food": "spaghetti",
+        "evidence": [3, 13, 47, 49, 55, 292, 307]
+    },
+    {
+        "food": "garlic toast",
+        "evidence": [5, 120, 292]
+    },
+    {
+        "food": "chicken",
+        "evidence": [88, 230, 244]
+    },
+    {
+        "food": "ginger ale",
+        "evidence": [130]
+    },
+    {
+        "food": "bread",
+        "evidence": [474]
+    }
+]

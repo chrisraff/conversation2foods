@@ -1,0 +1,14 @@
+[    
+    {
+        "food": "hot dog",
+        "evidence": [60, 117, 121]
+    },
+    {
+        "food": "salad dressing",
+        "evidence": [133]
+    },
+    {
+        "food": "onion",
+        "evidence": [57]
+    }
+]

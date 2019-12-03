@@ -1,0 +1,42 @@
+[
+    {
+        "food": "butter",
+        "evidence": [58, 253, 254]
+    },
+    {
+        "food": "potatoes",
+        "evidence": [183, 256, 257, 261, 336, 428]
+    },
+    {
+        "food": "egg",
+        "evidence": [110]
+    },
+    {
+        "food": "asparagus",
+        "evidence": [79]
+    },
+    {
+        "food": "cucumbers",
+        "evidence": [334, 335, 374, 390]
+    },
+    {
+        "food": "lettuce",
+        "evidence": [335, 391, 400]
+    },
+    {
+        "food": "tomatoes",
+        "evidence": [391]
+    },
+    {
+        "food": "popsicle",
+        "evidence": [463, 475]
+    },
+    {
+        "food": "milk",
+        "evidence": [499, 511, 512, 635, 66, 684, 709]
+    },
+    {
+        "food": "liver",
+        "evidence": [13, 177]
+    }
+]
