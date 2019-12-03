@@ -12,6 +12,8 @@ Spacy english data, which can be downloaded with: `python -m spacy download en`
 
 Run `clean_hslld.py` to clean all the transcripts (create the folder 'transcripts' for them to be saved to)
 
+Then run `parse_json_labels.py` to generate evidence data
+
 Run the food database lemmatizer
 `python food_database_lemmatizer.py`
 
