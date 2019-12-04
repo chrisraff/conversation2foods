@@ -62,51 +62,52 @@ class Net(nn.Module):
 
         return X
     
-# load dataset
-df = pd.read_csv('bert_data.csv', index_col=0)
-X=df.drop(['labels'],axis=1)
-Y=df['labels']
+if __name__ == "__main__":
+    # load dataset
+    df = pd.read_csv('bert_data.csv', index_col=0)
+    X=df.drop(['labels'],axis=1)
+    Y=df['labels']
 
-X, Y = balanced_subsample(X.values, Y.values)
+    X, Y = balanced_subsample(X.values, Y.values)
 
-print(X.shape, Y.shape)
+    print(X.shape, Y.shape)
 
-X_train, X_test, y_train, y_test = train_test_split(X,Y,random_state=0,test_size=0.3, stratify=Y)
+    X_train, X_test, y_train, y_test = train_test_split(X,Y,random_state=0,test_size=0.3, stratify=Y)
 
-# wrap up with Variable in pytorch
-X_train = Variable(torch.Tensor(X_train).float())
-X_test = Variable(torch.Tensor(X_test).float())
-y_train = Variable(torch.Tensor(y_train).long())
-y_test = Variable(torch.Tensor(y_test).long())
+    # wrap up with Variable in pytorch
+    X_train = Variable(torch.Tensor(X_train).float())
+    X_test = Variable(torch.Tensor(X_test).float())
+    y_train = Variable(torch.Tensor(y_train).long())
+    y_test = Variable(torch.Tensor(y_test).long())
 
 
-net = Net()
+    net = Net()
 
-criterion = nn.CrossEntropyLoss()# cross entropy loss
+    criterion = nn.CrossEntropyLoss()# cross entropy loss
 
-optimizer = torch.optim.SGD(net.parameters(), lr=0.01)
+    optimizer = torch.optim.SGD(net.parameters(), lr=0.01)
 
-for epoch in range(10000):
-    optimizer.zero_grad()
-    out = net(X_train)
-    loss = criterion(out, y_train)
-    loss.backward()
-    optimizer.step()
-    
-    if epoch % 100 == 0:
-        print('number of epoch', epoch, 'loss', loss.data.item())
+    for epoch in range(10000):
+        optimizer.zero_grad()
+        out = net(X_train)
+        loss = criterion(out, y_train)
+        loss.backward()
+        optimizer.step()
+        
+        if epoch % 100 == 0:
+            print('number of epoch', epoch, 'loss', loss.data.item())
 
-predict_out = net(X_test)
-_, y_pred = torch.max(predict_out, 1)
+    predict_out = net(X_test)
+    _, y_pred = torch.max(predict_out, 1)
 
-# print('prediction accuracy', accuracy_score(y_test.data, y_pred.data))
+    # print('prediction accuracy', accuracy_score(y_test.data, y_pred.data))
 
-# print('macro precision', precision_score(y_test.data, y_pred.data, average='macro'))
-# print('micro precision', precision_score(y_test.data, y_pred.data, average='micro'))
-# print('macro recall', recall_score(y_test.data, y_pred.data, average='macro'))
-# print('micro recall', recall_score(y_test.data, y_pred.data, average='micro'))
+    # print('macro precision', precision_score(y_test.data, y_pred.data, average='macro'))
+    # print('micro precision', precision_score(y_test.data, y_pred.data, average='micro'))
+    # print('macro recall', recall_score(y_test.data, y_pred.data, average='macro'))
+    # print('micro recall', recall_score(y_test.data, y_pred.data, average='micro'))
 
-target_names = ['No Evidence', 'Evidence']
-print(classification_report(y_test.data, y_pred.data, target_names=target_names))
+    target_names = ['No Evidence', 'Evidence']
+    print(classification_report(y_test.data, y_pred.data, target_names=target_names))
 
-torch.save(net.state_dict(), 'evidencenet.nn')
+    torch.save(net.state_dict(), 'evidencenet.nn')
