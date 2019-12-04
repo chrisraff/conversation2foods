@@ -7,14 +7,51 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd import Variable
 
+import numpy as np
+
+
+def balanced_subsample(x,y,subsample_size=1.0):
+
+    class_xs = []
+    min_elems = None
+
+    for yi in np.unique(y):
+        elems = x[(y == yi)]
+        class_xs.append((yi, elems))
+        if min_elems == None or elems.shape[0] < min_elems:
+            min_elems = elems.shape[0]
+
+    use_elems = min_elems
+    if subsample_size < 1:
+        use_elems = int(min_elems*subsample_size)
+
+    xs = []
+    ys = []
+
+    for ci,this_xs in class_xs:
+        if len(this_xs) > use_elems:
+            np.random.shuffle(this_xs)
+
+        x_ = this_xs[:use_elems]
+        y_ = np.empty(use_elems)
+        y_.fill(ci)
+
+        xs.append(x_)
+        ys.append(y_)
+
+    xs = np.concatenate(xs)
+    ys = np.concatenate(ys)
+
+    return xs,ys
+
 
 class Net(nn.Module):
     # define nn
     def __init__(self):
         super(Net, self).__init__()
-        self.fc1 = nn.Linear(768, 100)
-        self.fc2 = nn.Linear(100, 100)
-        self.fc3 = nn.Linear(100, 2)
+        self.fc1 = nn.Linear(768, 70)
+        self.fc2 = nn.Linear(70, 60)
+        self.fc3 = nn.Linear(60, 2)
         self.softmax = nn.Softmax(dim=1)
 
     def forward(self, X):
@@ -30,13 +67,17 @@ df = pd.read_csv('bert_data.csv', index_col=0)
 X=df.drop(['labels'],axis=1)
 Y=df['labels']
 
+X, Y = balanced_subsample(X.values, Y.values)
+
+print(X.shape, Y.shape)
+
 X_train, X_test, y_train, y_test = train_test_split(X,Y,test_size=0.2, stratify=Y)
 
 # wrap up with Variable in pytorch
-X_train = Variable(torch.Tensor(X_train.values).float())
-X_test = Variable(torch.Tensor(X_test.values).float())
-y_train = Variable(torch.Tensor(y_train.values).long())
-y_test = Variable(torch.Tensor(y_test.values).long())
+X_train = Variable(torch.Tensor(X_train).float())
+X_test = Variable(torch.Tensor(X_test).float())
+y_train = Variable(torch.Tensor(y_train).long())
+y_test = Variable(torch.Tensor(y_test).long())
 
 
 net = Net()
