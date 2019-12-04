@@ -52,7 +52,7 @@ def balanced_subsample(x,y,subsample_size=1.0):
     return xs,ys
 
 
-df = pd.read_csv('bert_data.csv')
+df = pd.read_csv('bert_data.csv', index_col=0)
 X=df.drop(['labels'],axis=1)
 Y=df['labels']
 
