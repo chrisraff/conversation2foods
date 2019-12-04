@@ -1,0 +1,21 @@
+[
+    {
+        "food": "french fry",
+        "evidence": [2, 301, 413]
+    },
+
+    {
+        "food": "rice",
+        "evidence": [62, 69, 111, 278, 280, 287]
+    },
+
+    {
+        "food": "vegetarian chili",
+        "evidence": [111, 271, 275, 288, 289, 349, 390, 413, 531, 643]
+    },
+
+    {
+        "food": "beans",
+        "evidence": [382, 395, 396, 397]
+    }
+]

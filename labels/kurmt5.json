@@ -1,0 +1,31 @@
+[
+    {
+        "food": "potato",
+        "evidence": [87, 176]
+    },
+
+    {
+        "food": "chicken",
+        "evidence": [175, 248, 249, 250, 262]
+    },
+
+    {
+        "food": "corn",
+        "evidence": [318, 336, 337, 342]
+    },
+
+    {
+        "food": "butter",
+        "evidence": [336, 338, 339, 341]
+    },
+
+    {
+        "food": "cranberry sauce",
+        "evidence": [349, 414, 428, 429]
+    },
+
+    {
+        "food": "milk",
+        "evidence": [613]
+    }
+]

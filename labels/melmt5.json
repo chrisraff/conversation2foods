@@ -1,0 +1,41 @@
+[
+    {
+        "food": "pork chop",
+        "evidence": [23, 35, 38, 54, 115, 116, 255, 419, 641]
+    },
+
+    {
+        "food": "shake and bake",
+        "evidence": [35, 38]
+    },
+
+    {
+        "food": "rice",
+        "evidence": [42, 44, 46, 353, 414, 476, 561]
+    },
+
+    {
+        "food": "soup",
+        "evidence": [44, 53, 414, 563]
+    },
+
+    {
+        "food": "chicken",
+        "evidence": [98, 100]
+    },
+
+    {
+        "food": "spinach",
+        "evidence": [112, 162, 326, 353]
+    },
+
+    {
+        "food": "shells",
+        "evidence": [167, 169, 173, 258, 635]
+    },
+
+    {
+        "food": "milk",
+        "evidence": [548]
+    }
+]

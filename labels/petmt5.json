@@ -1,0 +1,56 @@
+[
+    {
+        "food": "apple cider",
+        "evidence": [17, 18, 26, 27]
+    },
+
+    {
+        "food": "rice",
+        "evidence": [64]
+    },
+
+    {
+        "food": "milk",
+        "evidence": [67, 68, 70, 139, 142, 508, 521, 977]
+    },
+
+    {
+        "food": "butter",
+        "evidence": [98, 130, 131, 148, 153, 192, 330]
+    },
+
+    {
+        "food": "stuffing",
+        "evidence": [104, 106, 194, 203, 407, 408, 561, 563, 725, 1054]
+    },
+
+    {
+        "food": "bread",
+        "evidence": [111, 261, 547, 551, 552, 638, 887, 889, 890, 913]
+    },
+
+    {
+        "food": "salt",
+        "evidence": [220, 221, 222, 231, 244, 245]
+    },
+
+    {
+        "food": "corn",
+        "evidence": [258]
+    },
+
+    {
+        "food": "pork chops",
+        "evidence": [402, 404, 559, 576, 731, 891, 948, 1097]
+    },
+
+    {
+        "food": "apple sauce",
+        "evidence": [443, 578, 580, 891, 893, 949, 978, 982]
+    },
+
+    {
+        "food": "potatoes",
+        "evidence": [446, 735]
+    }
+]

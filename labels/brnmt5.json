@@ -1,0 +1,16 @@
+[
+    {
+        "food": "milk",
+        "evidence": [27]
+    },
+
+    {
+        "food": "potato salad",
+        "evidence": [166]
+    },
+
+    {
+        "food": "meat",
+        "evidence": [125, 131]
+    }
+]

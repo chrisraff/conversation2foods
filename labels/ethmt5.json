@@ -1,0 +1,31 @@
+[
+    {
+        "food": "coffee",
+        "evidence": [9]
+    },
+
+    {
+        "food": "rice",
+        "evidence": [40, 41, 241]
+    },
+
+    {
+        "food": "meat",
+        "evidence": [148, 230]
+    },
+
+    {
+        "food": "butter",
+        "evidence": [232]
+    },
+
+    {
+        "food": "green beans",
+        "evidence": [241, 243]
+    },
+
+    {
+        "food": "milk",
+        "evidence": [840, 841, 1336, 1470, 1474, 1535, 1550]
+    }
+]
