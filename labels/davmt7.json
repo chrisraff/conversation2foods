@@ -1,0 +1,42 @@
+[
+    {
+        "food": "fruit salad",
+        "evidence": [34, 48, 889, 890]
+    },
+    {
+        "food": "strawberry",
+        "evidence": [299, 303, 330, 336, 556]
+    },
+    {
+        "food": "banana",
+        "evidence": [28, 34]
+    },
+    {
+        "food": "pineapple",
+        "evidence": [423]
+    },
+    {
+        "food": "corn",
+        "evidence": [166, 541, 615, 623, 651, 653]
+    },
+    {
+        "food": "ham",
+        "evidence": [292, 320, 321, 322]
+    },
+    {
+        "food": "coke",
+        "evidence": [193, 195, 196]
+    },
+    {
+        "food": "potato",
+        "evidence": [57, 72, 283, 636]
+    },
+    {
+        "food": "cheese",
+        "evidence": [636]
+    },
+    {
+        "food": "cookies",
+        "evidence": [420, 431, 654, 692]
+    }
+]

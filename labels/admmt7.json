@@ -1,0 +1,18 @@
+[
+    {
+        "food": "pizza",
+        "evidence": [1, 44, 261, 262, 466]
+    },
+    {
+        "food": "orange soda",
+        "evidence": [30, 32, 34, 36, 37, 528]
+    },
+    {
+        "food": "pepper",
+        "evidence": [385, 390]
+    },
+    {
+        "food": "pepperoni",
+        "evidence": [385, 390, 750, 751]
+    }
+]

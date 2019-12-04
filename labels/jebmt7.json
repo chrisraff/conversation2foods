@@ -1,0 +1,18 @@
+[
+    {
+        "food": "tea",
+        "evidence": [33, 528]
+    },
+    {
+        "food": "milk",
+        "evidence": [35]
+    },
+    {
+        "food": "waffle",
+        "evidence": [46, 47, 48, 49, 101, 102, 103, 204]
+    },
+    {
+        "food": "sugar",
+        "evidence": [190, 191, 198, 200]
+    }
+]
