@@ -32,9 +32,9 @@ if __name__ == "__main__":
 
         input_ids = torch.tensor(tokenizer.encode(f"[CLS] {chunk} [SEP]")).unsqueeze(0)
         outputs = model(input_ids)
-        bertified_boy = outputs[0][0, -1, :]
+        bert_vector = outputs[0][0, -1, :]
 
-        bert_vectors += [bertified_boy.detach().numpy()]
+        bert_vectors += [bert_vector.detach().numpy()]
         labels += [label]
 
     bert_vectors_vector = np.array(bert_vectors)

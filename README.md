@@ -16,6 +16,8 @@ Then run `parse_json_labels.py` to generate evidence data
 
 Then run `generate_evidence_classifier_data.py` to convert the evidence data into labeled bert data. A true label indicates that the chunk contains evidence of a food
 
+At this point you can run `train_classifier.py` or `nn.py` to train a classifier or neural network
+
 Run the food database lemmatizer
 `python food_database_lemmatizer.py`
 

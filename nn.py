@@ -62,7 +62,7 @@ class Net(nn.Module):
 
         return X
     
-# load IRIS dataset
+# load dataset
 df = pd.read_csv('bert_data.csv', index_col=0)
 X=df.drop(['labels'],axis=1)
 Y=df['labels']
@@ -71,7 +71,7 @@ X, Y = balanced_subsample(X.values, Y.values)
 
 print(X.shape, Y.shape)
 
-X_train, X_test, y_train, y_test = train_test_split(X,Y,test_size=0.2, stratify=Y)
+X_train, X_test, y_train, y_test = train_test_split(X,Y,random_state=0,test_size=0.3, stratify=Y)
 
 # wrap up with Variable in pytorch
 X_train = Variable(torch.Tensor(X_train).float())
@@ -86,7 +86,7 @@ criterion = nn.CrossEntropyLoss()# cross entropy loss
 
 optimizer = torch.optim.SGD(net.parameters(), lr=0.01)
 
-for epoch in range(300):
+for epoch in range(10000):
     optimizer.zero_grad()
     out = net(X_train)
     loss = criterion(out, y_train)
@@ -108,3 +108,5 @@ _, y_pred = torch.max(predict_out, 1)
 
 target_names = ['No Evidence', 'Evidence']
 print(classification_report(y_test.data, y_pred.data, target_names=target_names))
+
+torch.save(net.state_dict(), 'evidencenet.nn')
