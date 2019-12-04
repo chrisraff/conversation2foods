@@ -3,9 +3,7 @@ use the neural network from nn.py to find evidence in a file
 uses cleaned files from clean_hslld.py
 '''
 import numpy as np
-import torch
-from nn import Net
-from torch.autograd import Variable
+import pickle
 from bertinator import get_bert_vector
 
 
@@ -21,7 +19,7 @@ def transcript_to_chunks(transcript, radius=1):
     
 
 
-def find_evidence(model, transcript, radius=1):
+def find_evidence(clf, transcript, radius=1):
     chunks = transcript_to_chunks(transcript, radius=radius)
 
     bert_vectors = []
@@ -32,13 +30,11 @@ def find_evidence(model, transcript, radius=1):
         bert_vectors += [bert_vector.detach().numpy()]
     
     X = np.array(bert_vectors)
-    X = Variable(torch.Tensor(X).float())
 
-    predict_out = model(X)
-    _, y_pred = torch.max(predict_out, 1)
+    y = clf.predict(X)
 
-    for i, is_evidence in enumerate(y_pred):
-        if is_evidence.data == 1:
+    for i, is_evidence in enumerate(y):
+        if is_evidence == 1:
             print(chunks[i])
             print('-'*48)
 
@@ -50,8 +46,8 @@ if __name__ == "__main__":
         transcript = f.read()
 
     # load neural network
-    model = Net()
-    model.load_state_dict(torch.load('evidencenet.nn'))
-    model.eval()
+    with open('clf.pickle', 'rb') as f:
+        clf = pickle.load(f)
 
-    find_evidence(model, transcript)
+    find_evidence(clf, transcript)
+    

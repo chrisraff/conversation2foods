@@ -4,6 +4,8 @@ transcripts/*
 training_prompts/*
 chunks_to_foods.json
 bert_data.csv
+evidencenet.nn
+clf.pickle
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -13,11 +13,21 @@ from tqdm import tqdm
 evidence_path = Path('labels/')
 radius = 1 # number of surrounding lines to take
 
+output_fname = 'chunks_to_foods.json'
+
+file_whitelist = None # if None, all files are accepted
+# file_whitelist = ['admmt7.json', 'allmt7.json', 'davmt7.json', 'jebmt7.json']
+
 
 if __name__ == "__main__":
     dataset = [] # tuples go here
 
     for fpath in tqdm(evidence_path.glob('*')):
+        # check if we should use this file
+        if file_whitelist is not None and fpath.parts[-1] not in file_whitelist:
+            # print(f'skipping {fpath.parts[-1]}')
+            continue
+
         # loading the labels
         with open(fpath, 'r') as f:
             food_evidences = json.load(f)
@@ -56,5 +66,5 @@ if __name__ == "__main__":
             dataset += [ {"chunk": chunk, "foods": foods} ]
             
     print('Saving dataset')
-    with open('chunks_to_foods.json', 'w') as f:
+    with open(output_fname, 'w') as f:
         json.dump(dataset, f)
