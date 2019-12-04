@@ -6,10 +6,7 @@ import numpy as np
 from transformers import *
 import torch
 import pickle
-
-
-tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
-bert_model = DistilBertModel.from_pretrained('distilbert-base-uncased')
+from bertinator import get_bert_vector
 
 
 def transcript_to_chunks(transcript, radius=1):
@@ -30,10 +27,7 @@ def find_evidence(clf, transcript, radius=1):
     bert_vectors = []
 
     for chunk in chunks:
-        # get the bert vector
-        input_ids = torch.tensor(tokenizer.encode(f"[CLS] {chunk} [SEP]")).unsqueeze(0)
-        outputs = bert_model(input_ids)
-        bert_vector = outputs[0][0, -1, :]
+        bert_vector = get_bert_vector(chunk)
 
         bert_vectors += [bert_vector.detach().numpy()]
     
