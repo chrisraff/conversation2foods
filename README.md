@@ -14,6 +14,8 @@ Run `clean_hslld.py` to clean all the transcripts (create the folder 'transcript
 
 Then run `parse_json_labels.py` to generate evidence data
 
+Run `augment_data.py` to augment the data by swapping in different foods to increase the number of true positives
+
 Then run `generate_evidence_classifier_data.py` to convert the evidence data into labeled bert data. A true label indicates that the chunk contains evidence of a food
 
 At this point you can run `train_classifier.py` or `nn.py` to train a classifier or neural network
