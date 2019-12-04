@@ -3,7 +3,6 @@ use the neural network from nn.py to find evidence in a file
 uses cleaned files from clean_hslld.py
 '''
 import numpy as np
-from transformers import *
 import torch
 from nn import Net
 from torch.autograd import Variable

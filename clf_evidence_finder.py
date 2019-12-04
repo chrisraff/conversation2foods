@@ -3,8 +3,6 @@ use the neural network from nn.py to find evidence in a file
 uses cleaned files from clean_hslld.py
 '''
 import numpy as np
-from transformers import *
-import torch
 import pickle
 from bertinator import get_bert_vector
 

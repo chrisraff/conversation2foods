@@ -3,8 +3,6 @@ Uses 'chunks_to_foods.json' (from 'parse_json_labels.py') to create
 a dataset of bertified vectors of the chunks and a corrospending
 boolean label
 """
-from transformers import *
-import torch
 import json
 import pandas as pd
 import numpy as np
