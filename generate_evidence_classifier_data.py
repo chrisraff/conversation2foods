@@ -40,3 +40,8 @@ if __name__ == "__main__":
 
     print('saving file')
     df.to_csv('bert_data.csv')
+
+    # print('appending to dataframe')
+    # df_old = pd.read_csv('bert_data.csv', index_col=0)
+    # df = df_old.append(df, ignore_index=True)
+    # df.to_csv('bert_data.csv')
