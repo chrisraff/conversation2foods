@@ -30,7 +30,12 @@ if __name__ == "__main__":
 
         # loading the labels
         with open(fpath, 'r') as f:
-            food_evidences = json.load(f)
+            try:
+                food_evidences = json.load(f)
+            except json.decoder.JSONDecodeError as e:
+                print(f'problem in {fpath}')
+                print(e)
+                exit()
         
         fe = [food['evidence'] for food in food_evidences]
         evidence_lines = [x for y in fe for x in y]
