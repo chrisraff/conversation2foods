@@ -85,3 +85,6 @@ print(classification_report(y_test_balanced, y_pred_balanced, target_names=targe
 y_pred_unbalanced = clf.predict(X_test_unbalanced)
 print("TESTING AGAINST UNBALANCED TEST DATA")
 print(classification_report(y_test_unbalanced, y_pred_unbalanced, target_names=target_names))
+
+with open('clf.pickle', 'wb') as f:
+    pickle.dump(clf, f)
