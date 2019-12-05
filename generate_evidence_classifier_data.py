@@ -28,7 +28,7 @@ if __name__ == "__main__":
 
         bert_vector = get_bert_vector(chunk)
 
-        bert_vectors += [bert_vector.detach().numpy()]
+        bert_vectors += [bert_vector.cpu().detach().numpy()]
         labels += [label]
 
     bert_vectors_vector = np.array(bert_vectors)
