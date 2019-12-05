@@ -18,6 +18,10 @@ for chunk_thing in dataset:
 all_foods = list(all_foods)
 # print(all_foods)
 
+# write all the foods to a file
+with open('all_foods.txt', 'w') as f:
+    f.write('\n'.join(all_foods))
+
 
 # use a seed chunk to generate some synthetic chunks
 def make_more_chunks(chunk_thing):

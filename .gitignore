@@ -6,6 +6,7 @@ chunks_to_foods.json
 bert_data.csv
 evidencenet.nn
 clf.pickle
+all_foods.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
