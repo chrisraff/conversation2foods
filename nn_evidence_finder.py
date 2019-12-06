@@ -4,7 +4,7 @@ uses cleaned files from clean_hslld.py
 '''
 import numpy as np
 import torch
-from nn import Net
+from nn_evidence import Net
 from torch.autograd import Variable
 from bertinator import get_bert_vector
 
@@ -29,7 +29,7 @@ def find_evidence(model, transcript, radius=1):
     for chunk in chunks:
         bert_vector = get_bert_vector(chunk)
 
-        bert_vectors += [bert_vector.detach().numpy()]
+        bert_vectors += [bert_vector.cpu().detach().numpy()]
     
     X = np.array(bert_vectors)
     X = Variable(torch.Tensor(X).float())

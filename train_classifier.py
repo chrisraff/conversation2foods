@@ -52,7 +52,9 @@ def balanced_subsample(x,y,subsample_size=1.0):
     return xs,ys
 
 
-df = pd.read_csv('bert_data.csv', index_col=0)
+print('loading database data')
+df = pd.read_csv('bert_data_augmented.csv', index_col=0)
+print('done')
 X=df.drop(['labels'],axis=1)
 Y=df['labels']
 
@@ -62,15 +64,25 @@ balanced_X, balanced_Y = balanced_subsample(X_train_unbalanced.values, y_train_u
 
 X_train_balanced, X_test_balanced, y_train_balanced, y_test_balanced = train_test_split(balanced_X, balanced_Y, random_state=0, test_size=0.2, stratify=balanced_Y)
 
+print('loading unaugmented  dataset')
+df_u = pd.read_csv('bert_data.csv', index_col=0)
+print('done')
+X_unaugmented=df_u.drop(['labels'],axis=1)
+Y_unaugmented=df_u['labels']
+
+X_unaugmented, Y_unaugmented = X_unaugmented.values, Y_unaugmented.values
+
+X_train_unbalanced_unaugmented, X_test_unbalanced_unaugmented, y_train_unbalanced_unaugmented, y_test_unbalanced_unaugmented = train_test_split(X_unaugmented, Y_unaugmented, random_state=0, test_size=0.2, stratify=Y_unaugmented)
+
 # clf = KNeighborsClassifier(n_neighbors=1, weights='distance')
-# clf = LogisticRegression()
-clf = RandomForestClassifier(
-    n_estimators=1000,
-    max_depth=7,
-    min_samples_split=5,
-    min_samples_leaf=5,
-    class_weight='balanced'
-    )
+clf = LogisticRegression()
+# clf = RandomForestClassifier( # takes forever with large set
+#     n_estimators=1000,
+#     max_depth=7,
+#     min_samples_split=5,
+#     min_samples_leaf=5,
+#     class_weight='balanced'
+#     )
 
 clf.fit(X_train_balanced, y_train_balanced)
 target_names = ['No Evidence', 'Evidence']
@@ -86,6 +98,10 @@ print(classification_report(y_test_balanced, y_pred_balanced, target_names=targe
 y_pred_unbalanced = clf.predict(X_test_unbalanced)
 print("TESTING AGAINST UNBALANCED TEST DATA")
 print(classification_report(y_test_unbalanced, y_pred_unbalanced, target_names=target_names))
+
+y_pred_unbalanced_unaugmented = clf.predict(X_test_unbalanced_unaugmented)
+print("TESTING AGAINST UNBALANCED TEST DATA")
+print(classification_report(y_test_unbalanced_unaugmented, y_pred_unbalanced_unaugmented, target_names=target_names))
 
 with open('clf.pickle', 'wb') as f:
     pickle.dump(clf, f)

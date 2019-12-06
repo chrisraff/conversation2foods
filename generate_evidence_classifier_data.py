@@ -10,7 +10,7 @@ from tqdm import tqdm
 from bertinator import get_bert_vector
 
 
-chunks_path = 'chunks_to_foods.json'
+chunks_path = 'chunks_to_foods_augmented.json'
 
 
 if __name__ == "__main__":
@@ -39,7 +39,7 @@ if __name__ == "__main__":
     df = df_label.join(df_bert)
 
     print('saving file')
-    df.to_csv('bert_data.csv')
+    df.to_csv('bert_data_augmented.csv')
 
     # print('appending to dataframe')
     # df_old = pd.read_csv('bert_data.csv', index_col=0)

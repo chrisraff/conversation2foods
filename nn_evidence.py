@@ -63,23 +63,34 @@ class Net(nn.Module):
         return X
     
 if __name__ == "__main__":
-    # load dataset
-    df = pd.read_csv('bert_data.csv', index_col=0)
+    print('loading dataset')
+    df = pd.read_csv('bert_data_augmented.csv', index_col=0)
+    print('done')
     X=df.drop(['labels'],axis=1)
     Y=df['labels']
 
-    X, Y = balanced_subsample(X.values, Y.values)
+    # X, Y = balanced_subsample(X.values, Y.values)
 
-    print(X.shape, Y.shape)
+    # print(X.shape, Y.shape)
 
-    X_train, X_test, y_train, y_test = train_test_split(X,Y,random_state=0,test_size=0.3, stratify=Y)
+    X, Y = X.values, Y.values
+
+    X_train_unbalanced, X_test_unbalanced, y_train_unbalanced, y_test_unbalanced = train_test_split(X, Y, random_state=0, test_size=0.2, stratify=Y)
+
+    balanced_X, balanced_Y = balanced_subsample(X_train_unbalanced, y_train_unbalanced)
+
+    X_train_balanced, X_test_balanced, y_train_balanced, y_test_balanced = train_test_split(balanced_X, balanced_Y, random_state=0, test_size=0.2, stratify=balanced_Y)
 
     # wrap up with Variable in pytorch
-    X_train = Variable(torch.Tensor(X_train).float())
-    X_test = Variable(torch.Tensor(X_test).float())
-    y_train = Variable(torch.Tensor(y_train).long())
-    y_test = Variable(torch.Tensor(y_test).long())
+    X_train_balanced = Variable(torch.Tensor(X_train_balanced).float())
+    X_test_balanced = Variable(torch.Tensor(X_test_balanced).float())
+    y_train_balanced = Variable(torch.Tensor(y_train_balanced).long())
+    y_test_balanced = Variable(torch.Tensor(y_test_balanced).long())
 
+    X_train_unbalanced = Variable(torch.Tensor(X_train_unbalanced).float())
+    X_test_unbalanced = Variable(torch.Tensor(X_test_unbalanced).float())
+    y_train_unbalanced = Variable(torch.Tensor(y_train_unbalanced).long())
+    y_test_unbalanced = Variable(torch.Tensor(y_test_unbalanced).long())
 
     net = Net()
 
@@ -89,16 +100,16 @@ if __name__ == "__main__":
 
     for epoch in range(10000):
         optimizer.zero_grad()
-        out = net(X_train)
-        loss = criterion(out, y_train)
+        out = net(X_train_balanced)
+        loss = criterion(out, y_train_balanced)
         loss.backward()
         optimizer.step()
         
         if epoch % 100 == 0:
             print('number of epoch', epoch, 'loss', loss.data.item())
 
-    predict_out = net(X_test)
-    _, y_pred = torch.max(predict_out, 1)
+    # predict_out = net(X_test)
+    # _, y_pred = torch.max(predict_out, 1)
 
     # print('prediction accuracy', accuracy_score(y_test.data, y_pred.data))
 
@@ -108,6 +119,21 @@ if __name__ == "__main__":
     # print('micro recall', recall_score(y_test.data, y_pred.data, average='micro'))
 
     target_names = ['No Evidence', 'Evidence']
-    print(classification_report(y_test.data, y_pred.data, target_names=target_names))
+
+    predict_out = net(X_train_balanced)
+    _, y_pred_train = torch.max(predict_out, 1)
+    print("TESTING AGAINST BALANCED TRAINING DATA")
+    print(classification_report(y_train_balanced, y_pred_train, target_names=target_names))
+
+    predict_out = net(X_test_balanced)
+    _, y_pred_balanced = torch.max(predict_out, 1)
+    print("TESTING AGAINST BALANCED TEST DATA")
+    print(classification_report(y_test_balanced, y_pred_balanced, target_names=target_names))
+
+    predict_out = net(X_test_unbalanced)
+    _, y_pred_unbalanced = torch.max(predict_out, 1)
+    print("TESTING AGAINST UNBALANCED TEST DATA")
+    print(classification_report(y_test_unbalanced, y_pred_unbalanced, target_names=target_names))
+
 
     torch.save(net.state_dict(), 'evidencenet.nn')
