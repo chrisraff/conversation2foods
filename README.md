@@ -1,5 +1,5 @@
 # conversation2foods
-Extract what foods were eaten from a transcript of a dinnertime conversation.
+Extract what foods were eaten from a transcript of a mealtime conversation.
 
 
 ## Requirements
