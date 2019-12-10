@@ -13,16 +13,20 @@ from tqdm import tqdm
 evidence_path = Path('labels/')
 radius = 1 # number of surrounding lines to take
 
-output_fname = 'chunks_to_foods.json'
+output_path = Path('chunks/')
+# output_fname = 'chunks_to_foods.json'
 
 file_whitelist = None # if None, all files are accepted
 # file_whitelist = ['admmt7.json', 'allmt7.json', 'davmt7.json', 'jebmt7.json']
 
+all_foods = set()
+
 
 if __name__ == "__main__":
-    dataset = [] # tuples go here
 
     for fpath in tqdm(evidence_path.glob('*')):
+        dataset = [] # tuples go here
+
         # check if we should use this file
         if file_whitelist is not None and fpath.parts[-1] not in file_whitelist:
             # print(f'skipping {fpath.parts[-1]}')
@@ -69,7 +73,24 @@ if __name__ == "__main__":
             chunk = '\n'.join(transcript_lines[max(0, i - radius) : min(len(transcript_lines), i + radius + 1)])
 
             dataset += [ {"chunk": chunk, "foods": foods} ]
+
+            # compile list of foods
+            for food_noun_phrase in foods:
+                food_noun_phrase = food_noun_phrase.lower()
+                # TODO lemmatize it
+
+                all_foods.add(food_noun_phrase)
+
+        # save this file's chunks
+        chunks_file_path = output_path / fpath.parts[-1]
+        with open(chunks_file_path, 'w') as f:
+            json.dump(dataset, f)
             
-    print('Saving dataset')
-    with open(output_fname, 'w') as f:
-        json.dump(dataset, f)
+    # print('Saving dataset')
+    # with open(output_fname, 'w') as f:
+    #     json.dump(dataset, f)
+
+    # at the end, save the list of all food words
+    all_foods = list(all_foods)
+    with open('all_foods.txt', 'w') as f:
+        f.write('\n'.join(all_foods))

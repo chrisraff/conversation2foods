@@ -17,62 +17,19 @@ from sklearn.metrics import classification_report
 
 
 
-def balanced_subsample(x,y,subsample_size=1.0):
+print('loading dataset')
+df_train = pd.read_csv('bert_evidence_train.csv', index_col=0)
+X_train = df_train.drop(['labels'],axis=1)
+y_train = df_train['labels']
 
-    class_xs = []
-    min_elems = None
+df_test = pd.read_csv('bert_evidence_test.csv', index_col=0)
+X_test = df_test.drop(['labels'],axis=1)
+y_test = df_test['labels']
 
-    for yi in np.unique(y):
-        elems = x[(y == yi)]
-        class_xs.append((yi, elems))
-        if min_elems == None or elems.shape[0] < min_elems:
-            min_elems = elems.shape[0]
-
-    use_elems = min_elems
-    if subsample_size < 1:
-        use_elems = int(min_elems*subsample_size)
-
-    xs = []
-    ys = []
-
-    for ci,this_xs in class_xs:
-        if len(this_xs) > use_elems:
-            np.random.shuffle(this_xs)
-
-        x_ = this_xs[:use_elems]
-        y_ = np.empty(use_elems)
-        y_.fill(ci)
-
-        xs.append(x_)
-        ys.append(y_)
-
-    xs = np.concatenate(xs)
-    ys = np.concatenate(ys)
-
-    return xs,ys
-
-
-print('loading database data')
-df = pd.read_csv('bert_data_augmented.csv', index_col=0)
 print('done')
-X=df.drop(['labels'],axis=1)
-Y=df['labels']
 
-X_train_unbalanced, X_test_unbalanced, y_train_unbalanced, y_test_unbalanced = train_test_split(X, Y, random_state=0, test_size=0.2, stratify=Y)
-
-balanced_X, balanced_Y = balanced_subsample(X_train_unbalanced.values, y_train_unbalanced.values)
-
-X_train_balanced, X_test_balanced, y_train_balanced, y_test_balanced = train_test_split(balanced_X, balanced_Y, random_state=0, test_size=0.2, stratify=balanced_Y)
-
-print('loading unaugmented  dataset')
-df_u = pd.read_csv('bert_data.csv', index_col=0)
-print('done')
-X_unaugmented=df_u.drop(['labels'],axis=1)
-Y_unaugmented=df_u['labels']
-
-X_unaugmented, Y_unaugmented = X_unaugmented.values, Y_unaugmented.values
-
-X_train_unbalanced_unaugmented, X_test_unbalanced_unaugmented, y_train_unbalanced_unaugmented, y_test_unbalanced_unaugmented = train_test_split(X_unaugmented, Y_unaugmented, random_state=0, test_size=0.2, stratify=Y_unaugmented)
+X_train, y_train = X_train.values, y_train.values
+X_test, y_test = X_test.values, y_test.values
 
 # clf = KNeighborsClassifier(n_neighbors=1, weights='distance')
 clf = LogisticRegression()
@@ -84,24 +41,16 @@ clf = LogisticRegression()
 #     class_weight='balanced'
 #     )
 
-clf.fit(X_train_balanced, y_train_balanced)
+clf.fit(X_train, y_train)
 target_names = ['No Evidence', 'Evidence']
 
-y_pred_train = clf.predict(X_train_balanced)
-print("TESTING AGAINST BALANCED TRAINING DATA")
-print(classification_report(y_train_balanced, y_pred_train, target_names=target_names))
+y_pred_train = clf.predict(X_train)
+print("TESTING AGAINST TRAINING DATA")
+print(classification_report(y_train, y_pred_train, target_names=target_names))
 
-y_pred_balanced = clf.predict(X_test_balanced)
-print("TESTING AGAINST BALANCED TEST DATA")
-print(classification_report(y_test_balanced, y_pred_balanced, target_names=target_names))
-
-y_pred_unbalanced = clf.predict(X_test_unbalanced)
-print("TESTING AGAINST UNBALANCED TEST DATA")
-print(classification_report(y_test_unbalanced, y_pred_unbalanced, target_names=target_names))
-
-y_pred_unbalanced_unaugmented = clf.predict(X_test_unbalanced_unaugmented)
-print("TESTING AGAINST UNBALANCED TEST DATA")
-print(classification_report(y_test_unbalanced_unaugmented, y_pred_unbalanced_unaugmented, target_names=target_names))
+y_pred_test = clf.predict(X_test)
+print("TESTING AGAINST TEST DATA")
+print(classification_report(y_test, y_pred_test, target_names=target_names))
 
 with open('clf.pickle', 'wb') as f:
     pickle.dump(clf, f)

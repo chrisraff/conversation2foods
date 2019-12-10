@@ -1,39 +1,31 @@
 import json
 from copy import copy
 from tqdm import tqdm
+from pathlib import Path
 
 
-# read in the data
-with open('chunks_to_foods.json') as f:
-    dataset = json.load(f)
+# get all the foods
+with open('all_foods.txt', 'r') as f:
+    all_foods = f.readlines()
 
-# extract a list of all the foods
-all_foods = set()
-for chunk_thing in dataset:
-    for food_noun_phrase in chunk_thing['foods']:
-        food_noun_phrase = food_noun_phrase.lower()
-        # TODO lemmatize it
-
-        all_foods.add(food_noun_phrase)
-all_foods = list(all_foods)
-# print(all_foods)
-
-# write all the foods to a file
-with open('all_foods.txt', 'w') as f:
-    f.write('\n'.join(all_foods))
+chunks_path = Path('chunks/')
+output_path = Path('chunks_augmented/')
 
 
 # use a seed chunk to generate some synthetic chunks
+# excludes the original chunk
 def make_more_chunks(chunk_thing):
     chunk_string = chunk_thing['chunk']
     chunk_foods = chunk_thing['foods']
 
-    # don't forget to include the original data
-    augmented_chunks = [chunk_thing]
+    augmented_chunks = []
 
     # O(2N) iterations
     for i, chunk_food in enumerate(chunk_foods):
         for fake_food in all_foods:
+            if fake_food == chunk_food:
+                continue
+
             # update the string
             augmented_chunk = chunk_string.replace(chunk_food, fake_food)
 
@@ -45,14 +37,17 @@ def make_more_chunks(chunk_thing):
 
     return augmented_chunks
 
-augmented_dataset = []
-for chunk_thing in tqdm(dataset):
-    augmented_chunks = make_more_chunks(chunk_thing)
-    augmented_dataset += augmented_chunks
-# print(augmented_dataset)
 
-print('Saving dataset')
-with open('chunks_to_foods_augmented.json', 'w') as f:
-    json.dump(augmented_dataset, f)
+for chunk_path in tqdm(list(chunks_path.glob('*.json'))):
+    with open(chunk_path, 'r') as f:
+        dataset = json.load(f)
 
-print(f"length has increase from {len(dataset)} to {len(augmented_dataset)}")
+    augmented_dataset = []
+    for chunk_thing in dataset:
+        augmented_chunks = make_more_chunks(chunk_thing)
+        augmented_dataset += augmented_chunks
+        
+    with open(output_path / chunk_path.parts[-1], 'w') as f:
+        json.dump(augmented_dataset, f)
+
+    # print(f"length has increase from {len(dataset)} to {len(augmented_dataset)}")

@@ -7,6 +7,12 @@ bert_data.csv
 evidencenet.nn
 clf.pickle
 all_foods.txt
+chunks/*
+chunks_augmented/*
+bert_evidence/*
+bert_evidence_augmented/*
+bert_evidence_train.csv
+bert_evidence_test.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
