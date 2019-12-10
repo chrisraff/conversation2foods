@@ -1,5 +1,6 @@
 # conversation2foods
- Extract foods from spoken conversation
+Extract what foods were eaten from a transcript of a dinnertime conversation.
+
 
 ## Requirements
 Python 3
