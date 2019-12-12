@@ -20,10 +20,7 @@ with open('pickles/lemmatized_food_names.pickle', 'rb') as f:
 
 
 # Returns a list of potential phrases in the sentence
-# problems with this very niave approach:
-#  substring issues:
-#   you want me to break it half so you can have two pieces?
-#   ['pie']
+# problems with this very naive approach:
 #  supersets:
 #   I want chocolate milk after I'm all done with mine.
 #   ['milk', 'chocolate milk', 'chocolate']
