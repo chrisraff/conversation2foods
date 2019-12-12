@@ -9,6 +9,11 @@ The spacy python package, which can be installed with: `pip install spacy`
 
 Spacy english data, which can be downloaded with: `python -m spacy download en`
 
+pytorch is required, installation instructions are [here](https://pytorch.org/)
+Note that every neural net is set to use cuda, this could be adapted with little effort.
+
+[The transformers package](https://github.com/huggingface/transformers), which can be installed with: `pip install transformers`
+
 ## Pipeline
 
 Run `clean_hslld.py` to clean all the transcripts (create the folder 'transcripts' for them to be saved to)
