@@ -7,87 +7,51 @@ import pandas as pd
 import torch
 from nn_evidence import Net
 from torch.autograd import Variable
-from bertinator import get_bert_vector
-from nn_evidence import balanced_subsample
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 
 
 if __name__ == "__main__":
+    
+    cuda = torch.device('cuda')
+
     # load neural network
     model = Net()
     model.load_state_dict(torch.load('evidencenet.nn'))
+    model = model.to(cuda)
     model.eval()
 
-    # load dataset
     print('loading dataset')
-    df = pd.read_csv('bert_data_augmented.csv', index_col=0)
-    print('done')
-    X=df.drop(['labels'],axis=1)
-    Y=df['labels']
+    df_train = pd.read_csv('bert_evidence_train.csv', index_col=0)
+    X_train = df_train.drop(['labels'],axis=1)
+    y_train = df_train['labels']
 
-    X, Y = X.values, Y.values
-
-    X_train_unbalanced, X_test_unbalanced, y_train_unbalanced, y_test_unbalanced = train_test_split(X, Y, random_state=0, test_size=0.2, stratify=Y)
-
-    balanced_X, balanced_Y = balanced_subsample(X_train_unbalanced, y_train_unbalanced)
-
-    X_train_balanced, X_test_balanced, y_train_balanced, y_test_balanced = train_test_split(balanced_X, balanced_Y, random_state=0, test_size=0.2, stratify=balanced_Y)
-
-    # wrap up with Variable in pytorch
-    X_train_balanced = Variable(torch.Tensor(X_train_balanced).float())
-    X_test_balanced = Variable(torch.Tensor(X_test_balanced).float())
-    y_train_balanced = Variable(torch.Tensor(y_train_balanced).long())
-    y_test_balanced = Variable(torch.Tensor(y_test_balanced).long())
-
-    X_train_unbalanced = Variable(torch.Tensor(X_train_unbalanced).float())
-    X_test_unbalanced = Variable(torch.Tensor(X_test_unbalanced).float())
-    y_train_unbalanced = Variable(torch.Tensor(y_train_unbalanced).long())
-    y_test_unbalanced = Variable(torch.Tensor(y_test_unbalanced).long())
+    df_test = pd.read_csv('bert_evidence_test.csv', index_col=0)
+    X_test = df_test.drop(['labels'],axis=1)
+    y_test = df_test['labels']
     
-    print('loading unaugmented  dataset')
-    df_u = pd.read_csv('bert_data.csv', index_col=0)
     print('done')
-    X_unaugmented=df_u.drop(['labels'],axis=1)
-    Y_unaugmented=df_u['labels']
 
-    # X, Y = balanced_subsample(X.values, Y.values)
-
-    # print(X.shape, Y.shape)
-
-    X_unaugmented, Y_unaugmented = X_unaugmented.values, Y_unaugmented.values
-
-    X_train_unbalanced_unaugmented, X_test_unbalanced_unaugmented, y_train_unbalanced_unaugmented, y_test_unbalanced_unaugmented = train_test_split(X_unaugmented, Y_unaugmented, random_state=0, test_size=0.2, stratify=Y_unaugmented)
-
-    # X_train_balanced_unaugmented, X_test_balanced_unaugmented, y_train_balanced_unaugmented, y_test_balanced_unaugmented = train_test_split(balanced_X_unaugmented, balanced_Y_unaugmented, random_state=0, test_size=0.2, stratify=balanced_Y_unaugmented)
+    X_train, y_train = X_train.values, y_train.values
+    X_test, y_test = X_test.values, y_test.values
 
     # wrap up with Variable in pytorch
-
-    X_train_unbalanced_unaugmented = Variable(torch.Tensor(X_train_unbalanced_unaugmented).float())
-    X_test_unbalanced_unaugmented = Variable(torch.Tensor(X_test_unbalanced_unaugmented).float())
-    y_train_unbalanced_unaugmented = Variable(torch.Tensor(y_train_unbalanced_unaugmented).long())
-    y_test_unbalanced_unaugmented = Variable(torch.Tensor(y_test_unbalanced_unaugmented).long())
+    X_train = Variable(torch.Tensor(X_train).float()).to(cuda)
+    X_test = Variable(torch.Tensor(X_test).float()).to(cuda)
+    y_train = Variable(torch.Tensor(y_train).long()).to(cuda)
+    y_test = Variable(torch.Tensor(y_test).long()).to(cuda)
 
     #----------------------------------------------------------------
     # evaluate model
+
     target_names = ['No Evidence', 'Evidence']
 
-    predict_out = model(X_train_balanced)
+    predict_out = model(X_train)
     _, y_pred_train = torch.max(predict_out, 1)
-    print("TESTING AGAINST BALANCED TRAINING DATA")
-    print(classification_report(y_train_balanced, y_pred_train, target_names=target_names))
+    print("TESTING AGAINST TRAINING DATA")
+    print(classification_report(y_train.cpu(), y_pred_train.cpu(), target_names=target_names))
 
-    predict_out = model(X_test_balanced)
-    _, y_pred_balanced = torch.max(predict_out, 1)
-    print("TESTING AGAINST BALANCED TEST DATA")
-    print(classification_report(y_test_balanced, y_pred_balanced, target_names=target_names))
-
-    predict_out = model(X_test_unbalanced)
-    _, y_pred_unbalanced = torch.max(predict_out, 1)
-    print("TESTING AGAINST UNBALANCED TEST DATA")
-    print(classification_report(y_test_unbalanced, y_pred_unbalanced, target_names=target_names))
-
-    predict_out = model(X_test_unbalanced_unaugmented)
-    _, y_pred_unbalanced_unaugmented = torch.max(predict_out, 1)
-    print("TESTING AGAINST UNBALANCED UNAUGMENTED TEST DATA")
-    print(classification_report(y_test_unbalanced_unaugmented, y_pred_unbalanced_unaugmented, target_names=target_names))
+    predict_out = model(X_test)
+    _, y_pred_testing = torch.max(predict_out, 1)
+    print("TESTING AGAINST TEST DATA")
+    print(classification_report(y_test.cpu(), y_pred_testing.cpu(), target_names=target_names))
