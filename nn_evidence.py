@@ -21,7 +21,7 @@ class Net(nn.Module):
 
     def forward(self, X):
         X = F.relu(self.fc1(X))
-        X = self.fc2(X)
+        X = F.relu(self.fc2(X))
         X = self.fc3(X)
         X = self.softmax(X)
 
@@ -41,20 +41,23 @@ if __name__ == "__main__":
 
     X_train, y_train = X_train.values, y_train.values
     X_test, y_test = X_test.values, y_test.values
+    
+    cuda = torch.device('cuda')
 
     # wrap up with Variable in pytorch
-    X_train = Variable(torch.Tensor(X_train).float())
-    X_test = Variable(torch.Tensor(X_test).float())
-    y_train = Variable(torch.Tensor(y_train).long())
-    y_test = Variable(torch.Tensor(y_test).long())
+    X_train = Variable(torch.Tensor(X_train).float()).to(cuda)
+    X_test = Variable(torch.Tensor(X_test).float()).to(cuda)
+    y_train = Variable(torch.Tensor(y_train).long()).to(cuda)
+    y_test = Variable(torch.Tensor(y_test).long()).to(cuda)
 
     net = Net()
+    net = net.to(cuda)
 
     criterion = nn.CrossEntropyLoss()# cross entropy loss
 
     optimizer = torch.optim.SGD(net.parameters(), lr=0.01)
 
-    for epoch in range(10000):
+    for epoch in range(50000):
         optimizer.zero_grad()
         out = net(X_train)
         loss = criterion(out, y_train)
@@ -81,11 +84,11 @@ if __name__ == "__main__":
     predict_out = net(X_train)
     _, y_pred_train = torch.max(predict_out, 1)
     print("TESTING AGAINST TRAINING DATA")
-    print(classification_report(y_train, y_pred_train, target_names=target_names))
+    print(classification_report(y_train.cpu(), y_pred_train.cpu(), target_names=target_names))
 
     predict_out = net(X_test)
     _, y_pred_test = torch.max(predict_out, 1)
     print("TESTING AGAINST TEST DATA")
-    print(classification_report(y_test, y_pred_test, target_names=target_names))
+    print(classification_report(y_test.cpu(), y_pred_test.cpu(), target_names=target_names))
 
     torch.save(net.state_dict(), 'evidencenet.nn')
